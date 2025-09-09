@@ -1,6 +1,6 @@
 # playwright-sample-tests-javascript
 
-Automated end-to-end tests for [Alphabin Demo](https://demo.alphabin.co/) using [Playwright](https://playwright.dev/).
+Automated end-to-end tests for [e-commerce demo site](https://demo.alphabin.co/) using [Playwright](https://playwright.dev/).
 
 ---
 
