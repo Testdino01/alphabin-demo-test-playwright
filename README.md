@@ -1,6 +1,6 @@
-# alphabin-demo-test-playwright
+# Ecommerce-demo-test-playwright
 
-Automated end-to-end tests for [Alphabin Demo](https://demo.alphabin.co/) using [Playwright](https://playwright.dev/).
+Automated end-to-end tests for Ecommerce Demo store using [Playwright](https://playwright.dev/).
 
 ---
 
@@ -51,9 +51,7 @@ npx playwright show-report
 
 After your tests complete and the report is generated in `playwright-report`, upload it to Testdino:
 
-```sh
-npx --yes tdpw ./playwright-report --token="your-token" --upload-html
-```
+
 
 Replace the token above with your own Testdino API key.
 
@@ -70,11 +68,7 @@ npx tdpw --help
 
 Add the following step to your workflow after tests and report generation:
 
-```yaml
-- name: Send Testdino report
-  run: |
-    npx --yes tdpw ./playwright-report --token="trx_production_035e6ed4a1a2be1f5a10eb45b837afa25b2740cc8b94ff8baca31ee3fe5e2d15" --upload-html
-```
+
 
 Ensure your API key is correctly placed in the command.
 
@@ -94,4 +88,3 @@ Pull requests and issues are welcome!
 
 ## License
 
-MIT
