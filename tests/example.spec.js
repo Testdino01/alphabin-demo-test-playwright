@@ -493,7 +493,7 @@ test('Verify that user is able to fill Contact Us page successfully @webkit', as
     await allPages.contactUsPage.verifySuccessContactUsFormSubmission();
 });
 
-test('Verify that user is able to submit a product review @andriod', async () => {
+test('Verify that user is able to submit a product review @android', async () => {
   await test.step('Login as existing user and navigate to a product', async () => {
     await login();
   })
@@ -590,7 +590,7 @@ test('Verify that all the navbar are working properly @ios', async () => {
     await allPages.homePage.assertAboutUsTitle();
 });
 
-test('Verify that user is able to delete selected product from cart @chromium', async () => {
+test('Verify that user is able to delete selected product from cart @ios', async () => {
     const productName = 'GoPro HERO10 Black';
     await login();
     await allPages.inventoryPage.clickOnShopNowButton();

@@ -1,9 +1,12 @@
 # .github/workflows/playwright-daily.yml
+# Runs Playwright test shards every day at **11 : 42 AM IST** (06 : 12 UTC)
+# plus anytime you trigger it manually from the Actions tab.
+
 name: Run Playwright tests
 
 on:
-  push:
-  pull_request:
+  push:          # runs on every push
+  pull_request:  # runs on new PRs or PR updates
   schedule:
     - cron: '30 3 * * 1-5'
   workflow_dispatch:
@@ -17,39 +20,31 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # Chromium → 25% (5 tests, 2 shards)
-          - browser: chromium
-            shardIndex: 1
-            shardTotal: 8
-          - browser: chromium
-            shardIndex: 2
-            shardTotal: 8
-
-          # Firefox → 25% (5 tests, 2 shards)
-          - browser: firefox
-            shardIndex: 3
-            shardTotal: 8
-          - browser: firefox
-            shardIndex: 4
-            shardTotal: 8
-
-          # WebKit → 25% (5 tests, 2 shards)
-          - browser: webkit
-            shardIndex: 5
-            shardTotal: 8
-          - browser: webkit
-            shardIndex: 6
-            shardTotal: 8
-
-          # Android → 10% (2 tests, 1 shard)
-          - browser: 'Pixel 5'
-            shardIndex: 7
-            shardTotal: 8
-
-          # iOS → 10% (2 tests, 1 shard)
-          - browser: 'iPhone 13'
-            shardIndex: 8
-            shardTotal: 8
+          # chromium → shards 1-5 (5 runs)
+          - { project: chromium, shardIndex: 1, shardTotal: 20 }
+          - { project: chromium, shardIndex: 2, shardTotal: 20 }
+          - { project: chromium, shardIndex: 3, shardTotal: 20 }
+          - { project: chromium, shardIndex: 4, shardTotal: 20 }
+          - { project: chromium, shardIndex: 5, shardTotal: 20 }
+          # firefox → shards 6-10 (5 runs)
+          - { project: firefox, shardIndex: 6, shardTotal: 20 }
+          - { project: firefox, shardIndex: 7, shardTotal: 20 }
+          - { project: firefox, shardIndex: 8, shardTotal: 20 }
+          - { project: firefox, shardIndex: 9, shardTotal: 20 }
+          - { project: firefox, shardIndex: 10, shardTotal: 20 }
+          # webkit → shards 11-15 (5 runs)
+          - { project: webkit, shardIndex: 11, shardTotal: 20 }
+          - { project: webkit, shardIndex: 12, shardTotal: 20 }
+          - { project: webkit, shardIndex: 13, shardTotal: 20 }
+          - { project: webkit, shardIndex: 14, shardTotal: 20 }
+          - { project: webkit, shardIndex: 15, shardTotal: 20 }
+          # android → shards 16-17 (2 runs)
+          - { project: android, shardIndex: 16, shardTotal: 20 }
+          - { project: android, shardIndex: 17, shardTotal: 20 }
+          # ios → shards 18-20 (3 runs)
+          - { project: ios, shardIndex: 18, shardTotal: 20 }
+          - { project: ios, shardIndex: 19, shardTotal: 20 }
+          - { project: ios, shardIndex: 20, shardTotal: 20 }
 
     steps:
       - uses: actions/checkout@v4
@@ -70,7 +65,7 @@ jobs:
           echo "STATE=${{ secrets.STATE }}" >> .env
           echo "COUNTRY=${{ secrets.COUNTRY }}" >> .env
           echo "ZIP_CODE=${{ secrets.ZIP_CODE }}" >> .env
-
+     
       - name: Cache npm dependencies
         uses: actions/cache@v3
         with:
@@ -84,21 +79,21 @@ jobs:
           npm ci
           npx playwright install --with-deps
 
-      - name: Run shard ${{ matrix.shardIndex }} on ${{ matrix.browser }}
-        run: npx playwright test --project="${{ matrix.browser }}" --reporter=blob --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - name: Run shard ${{ matrix.shardIndex }} on ${{ matrix.project }}
+        run: npx playwright test --project=${{ matrix.project }} --reporter=blob --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
       - name: Upload blob report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
-          name: blob-report-${{ matrix.browser }}-${{ matrix.shardIndex }}
+          name: blob-report-${{ matrix.project }}-${{ matrix.shardIndex }}
           path: ./blob-report
           retention-days: 1
 
   merge-reports:
     name: Merge Reports
     needs: run-tests
-    if: always()
+    if: always()             # run even if some shards fail
     runs-on: ubuntu-latest
 
     steps:
@@ -141,7 +136,7 @@ jobs:
 
       - name: Send TestDino report
         run: |
-          npx --yes tdpw ./playwright-report \
-            --token="${{ secrets.TESTDINO_TOKEN }}" \
-            --upload-html \
-            --verbose
+         npx --yes tdpw ./playwright-report \
+           --token="${{ secrets.TESTDINO_TOKEN }}" \
+           --upload-html \
+           --verbose
