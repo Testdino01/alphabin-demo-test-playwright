@@ -19,8 +19,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shardIndex: [1,2,3,4,5]
-        shardTotal: [5]
+        shardIndex: [1,2,3]
+        shardTotal: [2]
 
     steps:
       - uses: actions/checkout@v4
@@ -112,7 +112,7 @@ jobs:
 
       - name: Send TestDino report
         run: |
-          npx --yes tdpw ./playwright-report \
-            --token="trx_production_b0b86d5f044ecfa1d02cbdfa2f9d644dd7e4889912e0494b802abfe8f251db8e" \
-            --upload-html \
-            --verbose
+         npx --yes tdpw ./playwright-report \
+           --token="${{ secrets.TESTDINO_TOKEN }}" \
+           --upload-html \
+           --verbose
