@@ -1,3 +1,4 @@
+import { start } from 'repl';
 import BasePage from './BasePage.js';
 import { expect } from '@playwright/test';
 
@@ -29,6 +30,9 @@ class CartPage extends BasePage{
         checkoutButton: '[data-testid="checkout-button"]',
         viewCartButton: '[data-testid="view-cart-button"]',
         shoppingCartIcon: `[data-testid="header-cart-icon"]`,
+        deleteItemButton: '[aria-label="Remove item"]',
+        cartEmpty: `[data-testid="empty-cart"]`,
+        startShoppingButton: `[data-testid="continue-shopping-btn"]`
     }
 
     async assertYourCartTitle() {
@@ -124,6 +128,27 @@ class CartPage extends BasePage{
         await this.page.waitForTimeout(2000);
         await this.page.locator(this.locators.checkoutButton).click({ force: true });
     }
+
+    async verifyIncreasedQuantity(expectedQuantity) {
+        await expect(this.page.locator(this.locators.cartItemQuantity)).toHaveText(expectedQuantity);
+    }
+
+    async clickOnDeleteProductIcon() {
+        await this.page.locator(this.locators.deleteItemButton).click();
+    }
+
+    async verifyCartItemDeleted() {
+        await expect(this.page.locator(this.locators.cartItemName)).toHaveCount(0);
+    }
+
+    async verifyEmptyCartMessage() {
+        await expect(this.page.locator(this.locators.cartEmpty)).toBeVisible();
+    }
+
+    async clickOnStartShoppingButton() {
+        await this.page.locator(this.locators.startShoppingButton).click();
+    }
+
 }
 
 export default CartPage;
