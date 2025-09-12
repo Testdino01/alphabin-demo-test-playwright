@@ -21,6 +21,7 @@ jobs:
       matrix:
         shardIndex: [1,2,3,4,5]
         shardTotal: [5]
+        browser: [chromium, firefox]   # ✅ added browsers here
 
     steps:
       - uses: actions/checkout@v4
@@ -29,10 +30,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+
       - name: Create .env file
         run: |
           echo "USERNAME=${{ secrets.USERNAME }}" >> .env
-          echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
           echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
           echo "NEW_PASSWORD=${{ secrets.NEW_PASSWORD }}" >> .env
           echo "FIRST_NAME=${{ secrets.FIRST_NAME }}" >> .env
@@ -55,14 +56,14 @@ jobs:
           npm ci
           npx playwright install --with-deps
 
-      - name: Run shard ${{ matrix.shardIndex }}
-        run: npx playwright test --project=chromium --reporter=blob --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - name: Run shard ${{ matrix.shardIndex }} on ${{ matrix.browser }}
+        run: npx playwright test --project=${{ matrix.browser }} --reporter=blob --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
       - name: Upload blob report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
-          name: blob-report-${{ matrix.shardIndex }}
+          name: blob-report-${{ matrix.browser }}-${{ matrix.shardIndex }}
           path: ./blob-report
           retention-days: 1
 
