@@ -462,3 +462,4 @@ test('Verify That a New User Can Successfully Complete the Journey from Registra
     await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
   })
 });
+
