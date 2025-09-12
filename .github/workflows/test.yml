@@ -1,12 +1,9 @@
 # .github/workflows/playwright-daily.yml
-# Runs Playwright test shards every day at **11 : 42 AM IST** (06 : 12 UTC)
-# plus anytime you trigger it manually from the Actions tab.
-
 name: Run Playwright tests
 
 on:
-  push:          # runs on every push
-  pull_request:  # runs on new PRs or PR updates
+  push:
+  pull_request:
   schedule:
     - cron: '30 3 * * 1-5'
   workflow_dispatch:
@@ -19,9 +16,40 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shardIndex: [1,2,3,4,5]
-        shardTotal: [5]
-        browser: [chromium, firefox]   # ✅ added browsers here
+        include:
+          # Chromium → 25% (5 tests, 2 shards)
+          - browser: chromium
+            shardIndex: 1
+            shardTotal: 8
+          - browser: chromium
+            shardIndex: 2
+            shardTotal: 8
+
+          # Firefox → 25% (5 tests, 2 shards)
+          - browser: firefox
+            shardIndex: 3
+            shardTotal: 8
+          - browser: firefox
+            shardIndex: 4
+            shardTotal: 8
+
+          # WebKit → 25% (5 tests, 2 shards)
+          - browser: webkit
+            shardIndex: 5
+            shardTotal: 8
+          - browser: webkit
+            shardIndex: 6
+            shardTotal: 8
+
+          # Android → 10% (2 tests, 1 shard)
+          - browser: 'Pixel 5'
+            shardIndex: 7
+            shardTotal: 8
+
+          # iOS → 10% (2 tests, 1 shard)
+          - browser: 'iPhone 13'
+            shardIndex: 8
+            shardTotal: 8
 
     steps:
       - uses: actions/checkout@v4
@@ -42,7 +70,7 @@ jobs:
           echo "STATE=${{ secrets.STATE }}" >> .env
           echo "COUNTRY=${{ secrets.COUNTRY }}" >> .env
           echo "ZIP_CODE=${{ secrets.ZIP_CODE }}" >> .env
-     
+
       - name: Cache npm dependencies
         uses: actions/cache@v3
         with:
@@ -57,7 +85,7 @@ jobs:
           npx playwright install --with-deps
 
       - name: Run shard ${{ matrix.shardIndex }} on ${{ matrix.browser }}
-        run: npx playwright test --project=${{ matrix.browser }} --reporter=blob --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        run: npx playwright test --project="${{ matrix.browser }}" --reporter=blob --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
       - name: Upload blob report
         if: ${{ !cancelled() }}
@@ -70,7 +98,7 @@ jobs:
   merge-reports:
     name: Merge Reports
     needs: run-tests
-    if: always()             # run even if some shards fail
+    if: always()
     runs-on: ubuntu-latest
 
     steps:
@@ -113,7 +141,7 @@ jobs:
 
       - name: Send TestDino report
         run: |
-         npx --yes tdpw ./playwright-report \
-           --token="${{ secrets.TESTDINO_TOKEN }}" \
-           --upload-html \
-           --verbose
+          npx --yes tdpw ./playwright-report \
+            --token="${{ secrets.TESTDINO_TOKEN }}" \
+            --upload-html \
+            --verbose
