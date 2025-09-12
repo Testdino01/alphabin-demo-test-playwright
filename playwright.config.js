@@ -10,9 +10,7 @@ export default defineConfig({
   retries: isCI ? 1 : 0,
   workers: isCI ? 1 : 1,
 
-  timeout: 60 * 1000, // ⏱️ each test fails after 1 min
-  // In CI we only show a list reporter. The workflow sets --reporter=blob.
-  // Locally you also get HTML and JSON.
+  timeout: 60 * 1000,
   reporter: [
     ['html', {
       outputFolder: 'playwright-report',
@@ -24,7 +22,7 @@ export default defineConfig({
 
   use: {
     baseURL: 'https://demo.alphabin.co/',
-    headless: false,
+    headless: true,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -35,5 +33,10 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
   ],
+
 });

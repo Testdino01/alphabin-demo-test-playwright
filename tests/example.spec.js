@@ -590,7 +590,7 @@ test('Verify that all the navbar are working properly', async () => {
     await allPages.homePage.assertAboutUsTitle();
 });
 
-test.only('Verify that user is able to delete selected product from cart', async () => {
+test('Verify that user is able to delete selected product from cart', async () => {
     const productName = 'GoPro HERO10 Black';
     await login();
     await allPages.inventoryPage.clickOnShopNowButton();

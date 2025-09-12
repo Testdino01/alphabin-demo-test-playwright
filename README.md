@@ -1,6 +1,6 @@
-# alphabin-demo-test-playwright
+# Ecommerce demo store - Playwright (javascript) tests
 
-Automated end-to-end tests for [Alphabin Demo](https://demo.alphabin.co/) using [Playwright](https://playwright.dev/).
+Automated end-to-end tests for Ecommerce demo store using [Playwright](https://playwright.dev/).
 
 ---
 
@@ -47,12 +47,24 @@ npx playwright show-report
 
 [Testdino](https://testdino.com/) enables cloud-based Playwright reporting.
 
+> **Important:**  
+> Make sure your `playwright.config.js` includes both the HTML and JSON reporters.  
+> The HTML report and JSON report must be available for Testdino to process your test results.
+
+Example configuration:
+```js
+reporter: [
+  ['html', { outputFolder: 'playwright-report', open: 'never' }],
+  ['json', { outputFile: './playwright-report/report.json' }],
+]
+```
+
 ### Local Execution
 
 After your tests complete and the report is generated in `playwright-report`, upload it to Testdino:
 
 ```sh
-npx --yes tdpw ./playwright-report --token="your-token" --upload-html
+npx --yes tdpw ./playwright-report --token="YOUR_TESTDINO_API_KEY" --upload-html
 ```
 
 Replace the token above with your own Testdino API key.
@@ -73,7 +85,7 @@ Add the following step to your workflow after tests and report generation:
 ```yaml
 - name: Send Testdino report
   run: |
-    npx --yes tdpw ./playwright-report --token="trx_production_035e6ed4a1a2be1f5a10eb45b837afa25b2740cc8b94ff8baca31ee3fe5e2d15" --upload-html
+    npx --yes tdpw ./playwright-report --token="YOUR_TESTDINO_API_KEY" --upload-html
 ```
 
 Ensure your API key is correctly placed in the command.
