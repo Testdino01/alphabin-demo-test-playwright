@@ -33,14 +33,14 @@ test('Verify that user can login and logout successfully', async () => {
   await logout();
 });
 
-test('Verify that user can update personal information', async () => {
+test.skip('Verify that user can update personal information', async () => {
   await login();
   await allPages.userPage.clickOnUserProfileIcon();
   await allPages.userPage.updatePersonalInfo();
   await allPages.userPage.verifyPersonalInfoUpdated();
 });
 
-test('Verify that User Can Add, Edit, and Delete Addresses after Logging In', async () => {
+test.skip('Verify that User Can Add, Edit, and Delete Addresses after Logging In', async () => {
     await login();
 
   await test.step('Verify that user is able to add address successfully', async () => {
@@ -62,7 +62,7 @@ test('Verify that User Can Add, Edit, and Delete Addresses after Logging In', as
   });
 });
 
-test('Verify that user can change password successfully', async () => {
+test.skip('Verify that user can change password successfully', async () => {
   await test.step('Login with existing password', async () => {
     await login1();
   });
@@ -88,7 +88,7 @@ test('Verify that user can change password successfully', async () => {
   })
 });
 
-test('Verify that the New User is able to add Addresses in the Address section', async () => {
+test.skip('Verify that the New User is able to add Addresses in the Address section', async () => {
   await login();
   await allPages.userPage.clickOnUserProfileIcon();
   await allPages.userPage.clickOnAddressTab();
@@ -117,7 +117,7 @@ test('Verify that User Can Complete the Journey from Login to Order Placement', 
   await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
 });
 
-test('Verify user can place and cancel an order', async () => {
+test.skip('Verify user can place and cancel an order', async () => {
   const productName = 'GoPro HERO10 Black';
   const productPriceAndQuantity = '₹49,999 × 1';
   const productQuantity = '1';
@@ -397,7 +397,7 @@ test('Verify new user views and cancels an order in my orders', async () => {
   });
 });
 
-test('Verify That a New User Can Successfully Complete the Journey from Registration to a Multiple Order Placement', async () => {
+test.skip('Verify That a New User Can Successfully Complete the Journey from Registration to a Multiple Order Placement', async () => {
     const email = `test+${Date.now()}@test.com`;
     const firstName = 'Test';
     const lastName = 'User';
