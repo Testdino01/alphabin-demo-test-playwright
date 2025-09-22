@@ -28,10 +28,10 @@ async function logout() {
   await allPages.loginPage.clickOnLogoutButton();
 }
 
-// test('Verify that user can login and logout successfully', async () => {
-//   await login();
-//   await logout();
-// });
+test('Verify that user can login and logout successfully', async () => {
+  await login();
+  await logout();
+});
 
 test('Verify that user can update personal information', async () => {
   await login();
