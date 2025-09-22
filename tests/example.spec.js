@@ -33,7 +33,7 @@ test('Verify that user can login and logout successfully', async () => {
   await logout();
 });
 
-test('Verify that all the navbar are working properly, async () => {
+test('Verify that all the navbar are working properly', async () => {
     await login();
     await allPages.homePage.clickBackToHomeButton();
     // await allPages.homePage.assertHomePage();
