@@ -33,14 +33,14 @@ test('Verify that user can login and logout successfully @chromium', async () =>
   await logout();
 });
 
-test('Verify that user can update personal information @chromium', async () => {
+test('Verify that user can update personal information @andriod', async () => {
   await login();
   await allPages.userPage.clickOnUserProfileIcon();
   await allPages.userPage.updatePersonalInfo();
   await allPages.userPage.verifyPersonalInfoUpdated();
 });
 
-test('Verify that User Can Add, Edit, and Delete Addresses after Logging In @chromium', async () => {
+test('Verify that User Can Add, Edit, and Delete Addresses after Logging In @andriod', async () => {
     await login();
 
   await test.step('Verify that user is able to add address successfully', async () => {
@@ -62,7 +62,7 @@ test('Verify that User Can Add, Edit, and Delete Addresses after Logging In @chr
   });
 });
 
-test('Verify that user can change password successfully @chromium', async () => {
+test('Verify that user can change password successfully @ios', async () => {
   await test.step('Login with existing password', async () => {
     await login1();
   });
@@ -88,7 +88,7 @@ test('Verify that user can change password successfully @chromium', async () => 
   })
 });
 
-test('Verify that the New User is able to add Addresses in the Address section @chromium', async () => {
+test('Verify that the New User is able to add Addresses in the Address section @ios', async () => {
   await login();
   await allPages.userPage.clickOnUserProfileIcon();
   await allPages.userPage.clickOnAddressTab();
@@ -493,7 +493,7 @@ test('Verify that user is able to fill Contact Us page successfully @webkit', as
     await allPages.contactUsPage.verifySuccessContactUsFormSubmission();
 });
 
-test('Verify that user is able to submit a product review @android', async () => {
+test('Verify that user is able to submit a product review @chromium', async () => {
   await test.step('Login as existing user and navigate to a product', async () => {
     await login();
   })
@@ -518,7 +518,7 @@ test('Verify that user is able to submit a product review @android', async () =>
   })
 });
 
-test('Verify that user can edit and delete a product review @andriod', async () => {
+test('Verify that user can edit and delete a product review @chromium', async () => {
   await test.step('Login as existing user and navigate to a product', async () => {
     await login();
   })
@@ -578,7 +578,7 @@ test('Verify that user can purchase multiple quantities in a single order @ios',
     await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
 });
 
-test('Verify that all the navbar are working properly @ios', async () => {
+test('Verify that all the navbar are working properly @chromium', async () => {
     await login();
     await allPages.homePage.clickBackToHomeButton();
     // await allPages.homePage.assertHomePage();
@@ -590,7 +590,7 @@ test('Verify that all the navbar are working properly @ios', async () => {
     await allPages.homePage.assertAboutUsTitle();
 });
 
-test('Verify that user is able to delete selected product from cart @ios', async () => {
+test('Verify that user is able to delete selected product from cart @chroium', async () => {
     const productName = 'GoPro HERO10 Black';
     await login();
     await allPages.inventoryPage.clickOnShopNowButton();
