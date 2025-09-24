@@ -5,6 +5,8 @@
 name: Run Playwright tests
 
 on:
+  push:          # runs on every push
+  pull_request:  # runs on new PRs or PR updates
   schedule:
     # Original time: 06:30 UTC (11:00 AM IST)
     - cron: '30 3 * * 1-5'
