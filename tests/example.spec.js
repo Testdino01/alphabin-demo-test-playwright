@@ -162,7 +162,7 @@ test('Verify That a New User Can Successfully Complete the Journey from Registra
     let productName= `Rode NT1-A Condenser Mic`;
 
   await test.step('Verify that user can register successfully', async () => {
-    // Signup.
+    // Signup
     await allPages.loginPage.clickOnUserProfileIcon();
     await allPages.loginPage.validateSignInPage();
     await allPages.loginPage.clickOnSignupLink();
