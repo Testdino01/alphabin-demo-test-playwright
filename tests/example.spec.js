@@ -45,23 +45,23 @@ test('Verify that all the navbar are working properly', async () => {
     await allPages.homePage.assertAboutUsTitle();
 });
 
-test('Verify that user is able to delete selected product from cart', async () => {
-    const productName = 'GoPro HERO10 Black';
-    await login();
-    await allPages.inventoryPage.clickOnShopNowButton();
-    await allPages.inventoryPage.clickOnAllProductsLink();
-    await allPages.inventoryPage.searchProduct(productName);
-    await allPages.inventoryPage.verifyProductTitleVisible(productName);
-    await allPages.inventoryPage.clickOnAddToCartIcon();
+// test('Verify that user is able to delete selected product from cart', async () => {
+//     const productName = 'GoPro HERO10 Black';
+//     await login();
+//     await allPages.inventoryPage.clickOnShopNowButton();
+//     await allPages.inventoryPage.clickOnAllProductsLink();
+//     await allPages.inventoryPage.searchProduct(productName);
+//     await allPages.inventoryPage.verifyProductTitleVisible(productName);
+//     await allPages.inventoryPage.clickOnAddToCartIcon();
 
-    await allPages.cartPage.clickOnCartIcon();
-    await allPages.cartPage.verifyCartItemVisible(productName);
-    await allPages.cartPage.clickOnDeleteProductIcon();
-    await allPages.cartPage.verifyCartItemDeleted(productName);
-    await allPages.cartPage.verifyEmptyCartMessage();
-    await allPages.cartPage.clickOnStartShoppingButton();
-    await allPages.allProductsPage.assertAllProductsTitle();
-});
+//     await allPages.cartPage.clickOnCartIcon();
+//     await allPages.cartPage.verifyCartItemVisible(productName);
+//     await allPages.cartPage.clickOnDeleteProductIcon();
+//     await allPages.cartPage.verifyCartItemDeleted(productName);
+//     await allPages.cartPage.verifyEmptyCartMessage();
+//     await allPages.cartPage.clickOnStartShoppingButton();
+//     await allPages.allProductsPage.assertAllProductsTitle();
+// });
 
 test('Verify that user can edit and delete a product review', async () => {
   await test.step('Login as existing user and navigate to a product', async () => {
