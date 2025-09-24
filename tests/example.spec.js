@@ -29,6 +29,26 @@ async function logout() {
 }
 
 
+// Configure retries for this test only
+test.describe.configure({ retries: 2 });
+
+test.only('Verify that user can login and logout successfully (flaky)', async ({ page }) => {
+  await test.step('Login', async () => {
+    if (test.info().retry === 0) {
+      // First attempt → force failure
+      expect(false).toBe(true);
+    } else {
+      // Retry attempt → perform actual login
+      await login();
+    }
+  });
+
+  await test.step('Logout', async () => {
+    await page.waitForTimeout(2000); // Simulate some wait time before logout
+    await logout();
+  });
+});
+
 test('Verify that user can update personal information', async () => {
   await login();
   await allPages.userPage.clickOnUserProfileIcon();
