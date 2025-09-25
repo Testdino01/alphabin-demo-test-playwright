@@ -28,7 +28,7 @@ async function logout() {
   await allPages.loginPage.clickOnLogoutButton();
 }
 
-test('Verify that all the navbar are working properly', async () => {
+test('Verify that all the navbar are working properly @firefox', async () => {
     await login();
     await allPages.homePage.clickBackToHomeButton();
     // await allPages.homePage.assertHomePage();
@@ -40,7 +40,7 @@ test('Verify that all the navbar are working properly', async () => {
     await allPages.homePage.assertAboutUsTitle();
 });
 
-test('Verify that user is able to fill Contact Us page successfully', async () => {
+test('Verify that user is able to fill Contact Us page successfully @firefox', async () => {
     await login();
     await allPages.homePage.clickOnContactUsLink();
     await allPages.contactUsPage.assertContactUsTitle();
@@ -48,7 +48,7 @@ test('Verify that user is able to fill Contact Us page successfully', async () =
     await allPages.contactUsPage.verifySuccessContactUsFormSubmission();
 });
 
-  test('Verify that user can change password successfully', async () => {
+  test('Verify that user can change password successfully @ios', async () => {
   await test.step('Login with existing password', async () => {
     await login1();
   });
