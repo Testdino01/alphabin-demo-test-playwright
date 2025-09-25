@@ -32,7 +32,7 @@ async function logout() {
 // Configure retries for this test only
 test.describe.configure({ retries: 2 });
 
-test('Verify that user can login and logout successfully (flaky)', async ({ page }) => {
+test('Verify that user can login and logout successfully', async ({ page }) => {
   await test.step('Login', async () => {
     if (test.info().retry === 0) {
       // First attempt → force failure
