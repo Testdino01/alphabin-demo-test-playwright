@@ -114,11 +114,11 @@ jobs:
           retention-days: 14
 
       - name: Send TestDino report
-        env:
-          NODE_ENV: staging
+        # env:
+        #   NODE_ENV: staging
         run: |
          npx --yes tdpw ./playwright-report \
-           --token="trx_staging_9d6d5df0ceb85dff581f9d1c502bafb44aaee625e4030f7fb765187e017f01d0" \
+           --token="${{ secrets.TESTDINO_TOKEN }}" \
            --upload-html \
            --upload-traces \
            --verbose
