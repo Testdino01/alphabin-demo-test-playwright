@@ -82,6 +82,7 @@ class ProductDetailsPage extends BasePage{
         await expect(this.getProductAdditionalInfoTab()).toBeVisible();
     }
 
+    
     async clickAddToCartButton() {
         await this.getAddToCartButton().click();
         await expect(this.page.getByText('Added to the cart')).toBeVisible();
