@@ -10,6 +10,7 @@ class ProductDetailsPage extends BasePage{
         super(page);
         this.page = page;
     }
+    
 
     locators = {
         plusIconToAddQuantity: '[aria-label="plus"]',
@@ -82,7 +83,7 @@ class ProductDetailsPage extends BasePage{
         await expect(this.getProductAdditionalInfoTab()).toBeVisible();
     }
 
-    
+
     async clickAddToCartButton() {
         await this.getAddToCartButton().click();
         await expect(this.page.getByText('Added to the cart')).toBeVisible();
