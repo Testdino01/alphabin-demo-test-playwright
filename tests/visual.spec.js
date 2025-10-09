@@ -11,10 +11,10 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/');
 });
 
-test('visual comparison demo test @chromium', async ({ page }) => {
+test.only('test @chromium', async ({ page }) => {
   await page.goto('https://github.com/login');
   await expect(page).toHaveScreenshot('github-login.png');
   await page.getByRole('textbox', { name: 'Username or email address' }).click();
   await page.getByRole('textbox', { name: 'Username or email address' }).fill('test');
-  await expect(page).toHaveScreenshot('github-login-filled.png');
+  await expect(page).toHaveScreenshot('github-login.png');
 });
