@@ -7,9 +7,6 @@ name: Run Playwright tests
 on:
   push:          # runs on every push
   pull_request:  # runs on new PRs or PR updates
-  schedule:
-    - cron: '30 3 * * 1-5'
-  workflow_dispatch:
 
 jobs:
   run-tests:
@@ -114,11 +111,7 @@ jobs:
           retention-days: 14
 
       - name: Send TestDino report
-        # env:
-        #   NODE_ENV: staging
         run: |
-         npx --yes tdpw ./playwright-report \
-           --token="${{ secrets.TESTDINO_TOKEN }}" \
-           --upload-html \
-           --upload-traces \
+         NODE_ENV="stagiing" npx --yes tdpw upload ./playwright-report \
+           --token="trx_staging_d7727a36cc733a040ff93364a44d813f67ae3247c26658a827802fc07dec619c" \
            --verbose
