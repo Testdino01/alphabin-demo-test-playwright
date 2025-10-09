@@ -123,7 +123,7 @@ test('Verify if user can add product to wishlist, moves it to card and then chec
 });
   
 test('Verify that User Can Complete the Journey from Login to Order Placement @webkit', async () => {
-      const productName = 'GoPro HERO10 Black';
+      const productName = 'GoPro HERO10 Blacks';
       await login();
       await allPages.inventoryPage.clickOnShopNowButton();
       await allPages.inventoryPage.clickOnAllProductsLink();
@@ -143,7 +143,7 @@ test('Verify that User Can Complete the Journey from Login to Order Placement @w
 });
     
 test('Verify user can place and cancel an order @webkit', async () => {
-        const productName = 'GoPro HERO10 Black';
+        const productName = 'GoPro HERO10 Blacks';
         const productPriceAndQuantity = '₹49,999 × 1';
         const productQuantity = '1';
         const orderStatusProcessing = 'Processing';
