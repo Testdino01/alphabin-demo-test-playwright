@@ -11,7 +11,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/');
 });
 
-async function login(username = process.env.USERNAME, password = process.env.PASSWORD) {
+async function login(username = "John", password = process.env.PASSWORD) {
   await allPages.loginPage.clickOnUserProfileIcon();
   await allPages.loginPage.validateSignInPage();
   await allPages.loginPage.login(username, password);
@@ -132,7 +132,7 @@ test('Verify That a New User Can Successfully Complete the Journey from Registra
   await test.step('Navigate to All Products and add view details of a random product', async () => {
     await allPages.homePage.clickOnShopNowButton();
     await allPages.allProductsPage.assertAllProductsTitle();
-    await allPages.allProductsPage.clickNthProduct(1);
+    await allPages.allProductsPage.clickNthProduct(3); //select 3rd product
     await allPages.productDetailsPage.clickOnReviewsTab();
     await allPages.productDetailsPage.assertReviewsTab();
     await allPages.productDetailsPage.clickOnAdditionalInfoTab();
