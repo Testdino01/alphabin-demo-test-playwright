@@ -22,7 +22,7 @@ export default defineConfig({
 
   use: {
     baseURL: 'https://demo.alphabin.co/',
-    headless: false,
+    headless: true,
     trace: 'on',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
