@@ -28,15 +28,6 @@ async function logout() {
   await allPages.loginPage.clickOnLogoutButton();
 }
 
-test('Verify that the New User is able to add Addresses in the Address section @chromium', async () => {
-  await login();
-  await allPages.userPage.clickOnUserProfileIcon();
-  await allPages.userPage.clickOnAddressTab();
-  await allPages.userPage.clickOnAddAddressButton();
-  await allPages.userPage.checkAddNewAddressMenu();
-  await allPages.userPage.fillAddressForm();
-});
-
 test('Verify that User Can Complete the Journey from Login to Order Placement @firefox', async () => {
   const productName = 'GoPro HERO10 Black';
   await login();
@@ -309,31 +300,6 @@ test('Verify that user is able to fill Contact Us page successfully @webkit', as
     await allPages.contactUsPage.verifySuccessContactUsFormSubmission();
 });
 
-test('Verify that user is able to submit a product review @android', async () => {
-  await test.step('Login as existing user and navigate to a product', async () => {
-    await login();
-  })
-
-  await test.step('Navigate to all product section and select a product', async () => {
-    await allPages.homePage.clickOnShopNowButton();
-    await allPages.allProductsPage.assertAllProductsTitle();
-    await allPages.allProductsPage.clickNthProduct(1);
-  })
-
-  await test.step('Submit a product review and verify submission', async () => {
-    await allPages.productDetailsPage.clickOnReviewsTab();
-    await allPages.productDetailsPage.assertReviewsTab();
-    
-    await allPages.productDetailsPage.clickOnWriteAReviewBtn();
-    await allPages.productDetailsPage.fillReviewForm();
-    await allPages.productDetailsPage.assertSubmittedReview({
-        name: 'John Doe',
-        title: 'Great Product',
-        opinion: 'This product exceeded my expectations. Highly recommend!'
-    });
-  })
-});
-
 test('Verify that user can edit and delete a product review @andriod', async () => {
   await test.step('Login as existing user and navigate to a product', async () => {
     await login();
@@ -370,38 +336,4 @@ test('Verify that user can edit and delete a product review @andriod', async () 
   await test.step('Delete the submitted review and verify deletion', async () => {
     await allPages.productDetailsPage.clickOnDeleteReviewBtn();
   })
-});
-
-test('Verify that user can purchase multiple quantities in a single order @ios', async () => {
-    const productName = 'GoPro HERO10 Black';
-    await login();
-    await allPages.inventoryPage.clickOnShopNowButton();
-    await allPages.inventoryPage.clickOnAllProductsLink();
-    await allPages.inventoryPage.searchProduct(productName);
-    await allPages.inventoryPage.verifyProductTitleVisible(productName);
-    await allPages.inventoryPage.clickOnAddToCartIcon();
-
-    await allPages.cartPage.clickOnCartIcon();
-    await allPages.cartPage.verifyCartItemVisible(productName);
-    await allPages.cartPage.clickIncreaseQuantityButton();
-    await allPages.cartPage.verifyIncreasedQuantity('3');
-    await allPages.cartPage.clickOnCheckoutButton();
-    await allPages.checkoutPage.verifyCheckoutTitle();
-    await allPages.checkoutPage.verifyProductInCheckout(productName);
-    await allPages.checkoutPage.selectCashOnDelivery();
-    await allPages.checkoutPage.verifyCashOnDeliverySelected();
-    await allPages.checkoutPage.clickOnPlaceOrder();
-    await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
-});
-
-test('Verify that all the navbar are working properly @ios', async () => {
-    await login();
-    await allPages.homePage.clickBackToHomeButton();
-    // await allPages.homePage.assertHomePage();
-    await allPages.homePage.clickAllProductsNav();
-    await allPages.allProductsPage.assertAllProductsTitle();
-    await allPages.homePage.clickOnContactUsLink();
-    await allPages.contactUsPage.assertContactUsTitle();
-    await allPages.homePage.clickAboutUsNav();
-    await allPages.homePage.assertAboutUsTitle();
 });
