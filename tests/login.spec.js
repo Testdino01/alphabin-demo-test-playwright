@@ -17,34 +17,48 @@ async function login(username = process.env.USERNAME, password = process.env.PAS
   await allPages.loginPage.login(username, password);
 }
 
+async function login1(username = process.env.USERNAME1, password = process.env.PASSWORD) {
+  await allPages.loginPage.clickOnUserProfileIcon();
+  await allPages.loginPage.validateSignInPage();
+  await allPages.loginPage.login(username, password);
+}
+
 async function logout() {
   await allPages.loginPage.clickOnUserProfileIcon();
   await allPages.loginPage.clickOnLogoutButton();
 }
 
-test('Verify that user can login and logout successfully @chromium', async () => {
-  await login();
-  await logout();
+test('Verify that user can change password successfully', async () => {
+  await test.step('Login with existing password', async () => {
+    await login1();
+  });
+
+  await test.step('Change password and verify login with new password', async () => {
+    await allPages.userPage.clickOnUserProfileIcon();
+    await allPages.userPage.clickOnSecurityButton();
+    await allPages.userPage.enterNewPassword();
+    await allPages.userPage.enterConfirmNewPassword();
+    await allPages.userPage.clickOnUpdatePasswordButton();
+    await allPages.userPage.getUpdatePasswordNotification();
+  });
+  await test.step('Verify login with new password and revert back to original password', async () => {
+    // Re-login with new password
+    await logout();
+    await allPages.loginPage.login(process.env.USERNAME1, process.env.NEW_PASSWORD);
+
+    // Revert back
+    await allPages.userPage.clickOnUserProfileIcon();
+    await allPages.userPage.clickOnSecurityButton();
+    await allPages.userPage.revertPasswordBackToOriginal();
+    await allPages.userPage.getUpdatePasswordNotification();
+  })
 });
 
-test('Verify that the new user is able to Sign Up, Log In, and Navigate to the Home Page Successfully @chromium', async () => {
-    const email = `test+${Date.now()}@test.com`;
-    const firstName = 'Test';
-    const lastName = 'User';
-
-  await test.step('Verify that user can register successfully', async () => {
-    await allPages.loginPage.clickOnUserProfileIcon();
-    await allPages.loginPage.validateSignInPage();
-    await allPages.loginPage.clickOnSignupLink();
-    await allPages.signupPage.assertSignupPage();
-    await allPages.signupPage.signup(firstName, lastName, email, process.env.PASSWORD);
-    await allPages.signupPage.verifySuccessSignUp();
-  })
-
-  await test.step('Verify that user can login successfully', async () => {
-    await allPages.loginPage.validateSignInPage();
-    await allPages.loginPage.login(email, process.env.PASSWORD);
-    await allPages.loginPage.verifySuccessSignIn();
-    await expect(allPages.homePage.getHomeNav()).toBeVisible({ timeout: 30000 });
-  })
-})
+test('Verify that the New User is able to add Addresses in the Address section', async () => {
+  await login();
+  await allPages.userPage.clickOnUserProfileIcon();
+  await allPages.userPage.clickOnAddressTab();
+  await allPages.userPage.clickOnAddAddressButton();
+  await allPages.userPage.checkAddNewAddressMenu();
+  await allPages.userPage.fillAddressForm();
+});
