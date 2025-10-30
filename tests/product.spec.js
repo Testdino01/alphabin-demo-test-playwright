@@ -28,6 +28,7 @@ async function logout() {
   await allPages.loginPage.clickOnLogoutButton();
 }
 
+
 test('Verify user can place and cancel an order', async () => {
   const productName = 'GoPro HERO10 Black';
   const productPriceAndQuantity = '₹49,999 × 1';
