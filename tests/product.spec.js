@@ -28,7 +28,6 @@ async function logout() {
   await allPages.loginPage.clickOnLogoutButton();
 }
 
-
 test('Verify if user can add product to wishlist, moves it to card and then checks out @webkit', async () => {
     await login();
   
