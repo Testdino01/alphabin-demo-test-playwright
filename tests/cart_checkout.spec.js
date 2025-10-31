@@ -6,6 +6,7 @@ dotenv.config({ override: true });
 
 let allPages;
 
+
 test.beforeEach(async ({ page }) => {
   allPages = new AllPages(page);
   await page.goto('/');
