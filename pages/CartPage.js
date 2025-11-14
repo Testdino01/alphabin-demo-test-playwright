@@ -132,23 +132,6 @@ class CartPage extends BasePage{
     async verifyIncreasedQuantity(expectedQuantity) {
         await expect(this.page.locator(this.locators.cartItemQuantity)).toHaveText(expectedQuantity);
     }
-
-    async clickOnDeleteProductIcon() {
-        await this.page.locator(this.locators.deleteItemButton).click();
-    }
-
-    async verifyCartItemDeleted() {
-        await expect(this.page.locator(this.locators.cartItemName)).toHaveCount(0);
-    }
-
-    async verifyEmptyCartMessage() {
-        await expect(this.page.locator(this.locators.cartEmpty)).toBeVisible();
-    }
-
-    async clickOnStartShoppingButton() {
-        await this.page.locator(this.locators.startShoppingButton).click();
-    }
-
 }
 
 export default CartPage;

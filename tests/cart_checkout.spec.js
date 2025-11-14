@@ -107,3 +107,4 @@ test('Verify that the new user is able to Sign Up, Log In, and Navigate to the H
     await expect(allPages.homePage.getHomeNav()).toBeVisible({ timeout: 30000 });
   })
 })
+
