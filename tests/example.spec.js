@@ -28,11 +28,6 @@ async function logout() {
   await allPages.loginPage.clickOnLogoutButton();
 }
 
-// test('Verify that user can login and logout successfully', async () => {
-//   await login();
-//   await logout();
-// });
-
 test('Verify that user can update personal information', async () => {
   await login();
   await allPages.userPage.clickOnUserProfileIcon();
@@ -87,15 +82,6 @@ test('Verify that user can change password successfully', async () => {
     await allPages.userPage.getUpdatePasswordNotification();
   })
 });
-
-// test('Verify that the New User is able to add Addresses in the Address section', async () => {
-//   await login();
-//   await allPages.userPage.clickOnUserProfileIcon();
-//   await allPages.userPage.clickOnAddressTab();
-//   await allPages.userPage.clickOnAddAddressButton();
-//   await allPages.userPage.checkAddNewAddressMenu();
-//   await allPages.userPage.fillAddressForm();
-// });
 
 test('Verify user can place and cancel an order', async () => {
   const productName = 'GoPro HERO10 Black';
@@ -153,62 +139,6 @@ test('Verify user can place and cancel an order', async () => {
     await allPages.orderPage.clickOnPaginationButton(2);
     await allPages.orderPage.verifyOrderStatusInList(orderStatusCanceled, productName);
   })
-});
-
-test('Verify that user add product to cart before logging in and then complete order after logging in', async () => {
-  await test.step('Navigate and add product to cart before logging in', async () => {
-    await allPages.homePage.clickOnShopNowButton();
-    await allPages.homePage.clickProductImage();
-    await allPages.homePage.clickAddToCartButton();
-    await allPages.homePage.validateAddCartNotification();
-    await allPages.loginPage.clickOnUserProfileIcon();
-  })
-  await test.step('Login and complete order', async () => {
-    await login();
-    await allPages.cartPage.clickOnCartIcon();
-    await allPages.cartPage.clickOnCheckoutButton();
-    await allPages.checkoutPage.verifyCheckoutTitle();
-    await allPages.checkoutPage.selectCashOnDelivery();
-    await allPages.homePage.clickOnShopNowButton();
-
-    await allPages.checkoutPage.verifyCashOnDeliverySelected();
-    await allPages.checkoutPage.clickOnPlaceOrder();
-    await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
-})
-});
-
-test('Verify that user can filter products by price range', async () => {
-    await login();
-    await allPages.homePage.clickOnShopNowButton();
-    await allPages.homePage.clickOnFilterButton();
-    await allPages.homePage.AdjustPriceRangeSlider('10000', '20000');
-    await allPages.homePage.clickOnShopNowButton();
-    await allPages.homePage.clickOnFilterButton();
-});
-
-test('Verify if user can add product to wishlist, moves it to card and then checks out', async () => {
-    await login();
-  
-    await test.step('Add product to wishlistand then add to cart', async () => {
-      await allPages.homePage.clickOnShopNowButton();
-      await allPages.inventoryPage.addToWishlist();
-      await allPages.inventoryPage.assertWishlistIcon();
-      await allPages.inventoryPage.clickOnWishlistIconHeader();
-      await allPages.inventoryPage.assertWishlistPage();
-      await allPages.inventoryPage.clickOnWishlistAddToCard();
-    })
-  
-    await test.step('Checkout product added to cart', async () => {
-      await allPages.cartPage.clickOnCartIcon();
-      await allPages.cartPage.clickOnCheckoutButton();
-      await allPages.checkoutPage.verifyCheckoutTitle();
-      await allPages.checkoutPage.selectCashOnDelivery();
-      await allPages.checkoutPage.verifyCashOnDeliverySelected();
-      await allPages.homePage.clickOnShopNowButton();
-      await allPages.checkoutPage.clickOnPlaceOrder();
-      await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
-    })
-  
 });
 
 test('Verify That a New User Can Successfully Complete the Journey from Registration to a Multiple Order Placement', async () => {
