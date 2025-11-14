@@ -28,7 +28,6 @@ async function logout() {
   await allPages.loginPage.clickOnLogoutButton();
 }
 
-
 test('Verify new user views and cancels an order in my orders @chromium', async () => {
     const email = `test+${Date.now()}@test.com`;
     const firstName = 'Test';

@@ -50,7 +50,6 @@ test('Verify if user can add product to wishlist, moves it to card and then chec
       await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
     })
 });
-    
 
 test('Verify that a New User Can Successfully Complete the Journey from Registration to a Single Order Placement @chromium', async () => {
       // fresh test data
@@ -163,5 +162,3 @@ test('Verify that a New User Can Successfully Complete the Journey from Registra
         await allPages.orderDetailsPage.clickBackToHomeButton();
       });
 });
-
-
