@@ -51,6 +51,7 @@ test('Verify if user can add product to wishlist, moves it to card and then chec
     })
 });
     
+
 test('Verify that a New User Can Successfully Complete the Journey from Registration to a Single Order Placement @chromium', async () => {
       // fresh test data
       const email = `test+${Date.now()}@test.com`;
