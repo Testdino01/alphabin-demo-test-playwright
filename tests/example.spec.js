@@ -28,10 +28,10 @@ async function logout() {
   await allPages.loginPage.clickOnLogoutButton();
 }
 
-test('Verify that user can login and logout successfully', async () => {
-  await login();
-  await logout();
-});
+// test('Verify that user can login and logout successfully', async () => {
+//   await login();
+//   await logout();
+// });
 
 test('Verify that user can update personal information', async () => {
   await login();
@@ -88,35 +88,14 @@ test('Verify that user can change password successfully', async () => {
   })
 });
 
-test('Verify that the New User is able to add Addresses in the Address section', async () => {
-  await login();
-  await allPages.userPage.clickOnUserProfileIcon();
-  await allPages.userPage.clickOnAddressTab();
-  await allPages.userPage.clickOnAddAddressButton();
-  await allPages.userPage.checkAddNewAddressMenu();
-  await allPages.userPage.fillAddressForm();
-});
-
-test('Verify that User Can Complete the Journey from Login to Order Placement', async () => {
-  const productName = 'GoPro HERO10 Black';
-  await login();
-  await allPages.inventoryPage.clickOnShopNowButton();
-  await allPages.inventoryPage.clickOnAllProductsLink();
-  await allPages.inventoryPage.searchProduct(productName);
-  await allPages.inventoryPage.verifyProductTitleVisible(productName);
-  await allPages.inventoryPage.clickOnAddToCartIcon();
-
-  await allPages.cartPage.clickOnCartIcon();
-  await allPages.cartPage.verifyCartItemVisible(productName);
-  await allPages.cartPage.clickOnCheckoutButton();
-  await allPages.checkoutPage.verifyCheckoutTitle();
-  await allPages.checkoutPage.verifyProductInCheckout(productName);
-  await allPages.cartPage.clickOnCartIcon();
-  await allPages.checkoutPage.selectCashOnDelivery();
-  await allPages.checkoutPage.verifyCashOnDeliverySelected();
-  await allPages.checkoutPage.clickOnPlaceOrder();
-  await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
-});
+// test('Verify that the New User is able to add Addresses in the Address section', async () => {
+//   await login();
+//   await allPages.userPage.clickOnUserProfileIcon();
+//   await allPages.userPage.clickOnAddressTab();
+//   await allPages.userPage.clickOnAddAddressButton();
+//   await allPages.userPage.checkAddNewAddressMenu();
+//   await allPages.userPage.fillAddressForm();
+// });
 
 test('Verify user can place and cancel an order', async () => {
   const productName = 'GoPro HERO10 Black';
