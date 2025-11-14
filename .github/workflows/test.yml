@@ -1,9 +1,15 @@
+# .github/workflows/playwright-daily.yml
+# Runs Playwright test shards every day at **11 : 42 AM IST** (06 : 12 UTC)
+# plus anytime you trigger it manually from the Actions tab.
+
 name: Run Playwright tests
 
 on:
-  push:
+  push:          # runs on every push
+  pull_request:  # runs on new PRs or PR updates
+  schedule:
+    - cron: '30 3 * * 1-5'
   workflow_dispatch:
-
 
 jobs:
   run-tests:
@@ -109,4 +115,5 @@ jobs:
          npx --yes tdpw ./playwright-report \
            --token="${{ secrets.TESTDINO_TOKEN }}" \
            --upload-html \
+           --upload-traces \
            --verbose

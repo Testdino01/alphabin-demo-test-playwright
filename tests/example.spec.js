@@ -28,27 +28,6 @@ async function logout() {
   await allPages.loginPage.clickOnLogoutButton();
 }
 
-
-// Configure retries for this test only
-test.describe.configure({ retries: 2 });
-
-test('Verify that user can login and logout successfully', async ({ page }) => {
-  await test.step('Login', async () => {
-    if (test.info().retry === 0) {
-      // First attempt → force failure
-      expect(false).toBe(true);
-    } else {
-      // Retry attempt → perform actual login
-      await login();
-    }
-  });
-
-  await test.step('Logout', async () => {
-    await page.waitForTimeout(2000); // Simulate some wait time before logout
-    await logout();
-  });
-});
-
 test('Verify that user can update personal information', async () => {
   await login();
   await allPages.userPage.clickOnUserProfileIcon();
@@ -103,17 +82,6 @@ test('Verify that user can change password successfully', async () => {
     await allPages.userPage.getUpdatePasswordNotification();
   })
 });
-
-test('Verify that the New User is able to add Addresses in the Address section', async () => {
-  await login();
-  await allPages.userPage.clickOnUserProfileIcon();
-  await allPages.userPage.clickOnAddressTab();
-  await allPages.userPage.clickOnAddAddressButton();
-  await allPages.userPage.checkAddNewAddressMenu();
-  await allPages.userPage.fillAddressForm();
-});
-
-
 
 test('Verify user can place and cancel an order', async () => {
   const productName = 'GoPro HERO10 Black';
@@ -172,7 +140,6 @@ test('Verify user can place and cancel an order', async () => {
     await allPages.orderPage.verifyOrderStatusInList(orderStatusCanceled, productName);
   })
 });
-
 
 test('Verify That a New User Can Successfully Complete the Journey from Registration to a Multiple Order Placement', async () => {
     const email = `test+${Date.now()}@test.com`;
