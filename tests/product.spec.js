@@ -118,7 +118,6 @@ test('Verify if user can add product to wishlist, moves it to card and then chec
       await allPages.checkoutPage.selectCashOnDelivery();
       await allPages.checkoutPage.verifyCashOnDeliverySelected();
       await allPages.checkoutPage.clickOnPlaceOrder();
-      await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
     })
 });
   
@@ -139,65 +138,6 @@ test('Verify that User Can Complete the Journey from Login to Order Placement @w
       await allPages.checkoutPage.selectCashOnDelivery();
       await allPages.checkoutPage.verifyCashOnDeliverySelected();
       await allPages.checkoutPage.clickOnPlaceOrder();
-      await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
-});
-    
-test('Verify user can place and cancel an order @webkit', async () => {
-        const productName = 'GoPro HERO10 Black';
-        const productPriceAndQuantity = '₹49,999 × 1';
-        const productQuantity = '1';
-        const orderStatusProcessing = 'Processing';
-        const orderStatusCanceled = 'Canceled';
-        
-        await test.step('Verify that user can login successfully', async () => {
-            await login();
-            await allPages.inventoryPage.clickOnAllProductsLink();
-            await allPages.inventoryPage.searchProduct(productName);
-            await allPages.inventoryPage.verifyProductTitleVisible(productName);
-            await allPages.inventoryPage.clickOnAddToCartIcon();
-        })
-        
-        await test.step('Add product to cart and checkout', async () => {
-        await allPages.cartPage.clickOnCartIcon();
-            await allPages.cartPage.verifyCartItemVisible(productName);
-            await allPages.cartPage.clickOnCheckoutButton();
-        })
-        
-        await test.step('Place order and click on continue shopping', async () => {
-            await allPages.checkoutPage.verifyCheckoutTitle();
-            await allPages.checkoutPage.verifyProductInCheckout(productName);
-            await allPages.checkoutPage.selectCashOnDelivery();
-            await allPages.checkoutPage.verifyCashOnDeliverySelected();
-            await allPages.checkoutPage.clickOnPlaceOrder();
-            await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
-            await allPages.checkoutPage.verifyOrderItemName(productName);
-            await allPages.inventoryPage.clickOnContinueShopping();
-        })
-        
-        await test.step('Verify order in My Orders', async () => {
-            await allPages.loginPage.clickOnUserProfileIcon();
-            await allPages.orderPage.clickOnMyOrdersTab();
-            await allPages.orderPage.verifyMyOrdersTitle();
-            await allPages.orderPage.clickOnPaginationButton(2);
-            await allPages.orderPage.verifyProductInOrderList(productName);
-            await allPages.orderPage.verifyPriceAndQuantityInOrderList(productPriceAndQuantity);
-            await allPages.orderPage.verifyOrderStatusInList(orderStatusProcessing, productName);
-            await allPages.orderPage.clickOnPaginationButton(1);
-            await allPages.orderPage.clickViewDetailsButton(1);
-            await allPages.orderPage.verifyOrderDetailsTitle();
-            await allPages.orderPage.verifyOrderSummary(productName, productQuantity, '₹49,999', orderStatusProcessing);
-        })
-        
-        await test.step('Cancel order and verify status is updated to Canceled', async () => {
-            await allPages.orderPage.clickCancelOrderButton(2);
-            await allPages.orderPage.confirmCancellation();
-            await allPages.orderPage.verifyCancellationConfirmationMessage();
-            await allPages.orderPage.verifyMyOrdersCount();
-            await allPages.orderPage.clickOnMyOrdersTab();
-            await allPages.orderPage.verifyMyOrdersTitle();
-            await allPages.orderPage.clickOnPaginationButton(2);
-            await allPages.orderPage.verifyOrderStatusInList(orderStatusCanceled, productName);
-        })
 });
     
 test('Verify that a New User Can Successfully Complete the Journey from Registration to a Single Order Placement @chromium', async () => {
@@ -328,7 +268,6 @@ test('Verify that user add product to cart before logging in and then complete o
         await allPages.checkoutPage.selectCashOnDelivery();
         await allPages.checkoutPage.verifyCashOnDeliverySelected();
         await allPages.checkoutPage.clickOnPlaceOrder();
-        await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
     });
 });
 

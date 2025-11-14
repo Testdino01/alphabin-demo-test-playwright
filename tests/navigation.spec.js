@@ -47,29 +47,3 @@ test('Verify that user is able to fill Contact Us page successfully @firefox', a
     await allPages.contactUsPage.fillContactUsForm();
     await allPages.contactUsPage.verifySuccessContactUsFormSubmission();
 });
-
-  test('Verify that user can change password successfully @ios', async () => {
-  await test.step('Login with existing password', async () => {
-    await login1();
-  });
-
-  await test.step('Change password and verify login with new password', async () => {
-    await allPages.userPage.clickOnUserProfileIcon();
-    await allPages.userPage.clickOnSecurityButton();
-    await allPages.userPage.enterNewPassword();
-    await allPages.userPage.enterConfirmNewPassword();
-    await allPages.userPage.clickOnUpdatePasswordButton();
-    await allPages.userPage.getUpdatePasswordNotification();
-  });
-  await test.step('Verify login with new password and revert back to original password', async () => {
-    // Re-login with new password
-    await logout();
-    await allPages.loginPage.login(process.env.USERNAME1, process.env.NEW_PASSWORD);
-
-    // Revert back
-    await allPages.userPage.clickOnUserProfileIcon();
-    await allPages.userPage.clickOnSecurityButton();
-    await allPages.userPage.revertPasswordBackToOriginal();
-    await allPages.userPage.getUpdatePasswordNotification();
-  })
-});

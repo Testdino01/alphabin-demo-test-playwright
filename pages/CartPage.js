@@ -1,3 +1,4 @@
+import { start } from 'repl';
 import BasePage from './BasePage.js';
 import { expect } from '@playwright/test';
 
@@ -29,6 +30,9 @@ class CartPage extends BasePage{
         checkoutButton: '[data-testid="checkout-button"]',
         viewCartButton: '[data-testid="view-cart-button"]',
         shoppingCartIcon: `[data-testid="header-cart-icon"]`,
+        deleteItemButton: '[aria-label="Remove item"]',
+        cartEmpty: `[data-testid="empty-cart"]`,
+        startShoppingButton: `[data-testid="continue-shopping-btn"]`
     }
 
     async assertYourCartTitle() {
