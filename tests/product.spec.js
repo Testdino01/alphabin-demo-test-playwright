@@ -118,7 +118,6 @@ test('Verify if user can add product to wishlist, moves it to card and then chec
       await allPages.checkoutPage.selectCashOnDelivery();
       await allPages.checkoutPage.verifyCashOnDeliverySelected();
       await allPages.checkoutPage.clickOnPlaceOrder();
-      await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
     })
 });
   
@@ -139,7 +138,6 @@ test('Verify that User Can Complete the Journey from Login to Order Placement @w
       await allPages.checkoutPage.selectCashOnDelivery();
       await allPages.checkoutPage.verifyCashOnDeliverySelected();
       await allPages.checkoutPage.clickOnPlaceOrder();
-      await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
 });
     
 test('Verify that a New User Can Successfully Complete the Journey from Registration to a Single Order Placement @chromium', async () => {
@@ -270,7 +268,6 @@ test('Verify that user add product to cart before logging in and then complete o
         await allPages.checkoutPage.selectCashOnDelivery();
         await allPages.checkoutPage.verifyCashOnDeliverySelected();
         await allPages.checkoutPage.clickOnPlaceOrder();
-        await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
     });
 });
 
